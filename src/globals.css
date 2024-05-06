@@ -30,4 +30,19 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+  /* styles.css */
+.search-input {
+  width: 200px;
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+.search-button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
 }
