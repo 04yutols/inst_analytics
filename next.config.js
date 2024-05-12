@@ -1,6 +1,5 @@
 
 module.exports = {
-    basePath: '/pages',
     plugins: [
       '@babel/plugin-transform-modules-commonjs',
     ],
