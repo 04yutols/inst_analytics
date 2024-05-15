@@ -7,7 +7,7 @@ const { Option } = Select;
 const FormItem = Form.Item;
 
 interface SearchProps {
-  onSearch: (keyword: string) => void;
+  onSearch: (value: any) => void;
 }
 
 const Search: React.FC<SearchProps> = ({ onSearch }) => {
@@ -17,13 +17,17 @@ const Search: React.FC<SearchProps> = ({ onSearch }) => {
     token: { colorBgContainer, borderRadiusLG },
   } = theme.useToken();
 
+  const onFinish = (values: any) => {
+    console.log('Received values of form: ', values);
+  };
+
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setKeyword(event.target.value);
   };
 
-  const handleSearch = () => {
-    onSearch(keyword);
+  const handleSearch = (value: any) => {
+    onSearch(value);
   };
 
   return (
@@ -44,7 +48,7 @@ const Search: React.FC<SearchProps> = ({ onSearch }) => {
     </Flex> */}
     <Form
     name="complex-form"
-    onFinish={onSearch}
+    onFinish={handleSearch}
     labelCol={{ span: 8 }}
     wrapperCol={{ span: 16 }}
     style={{ maxWidth: 600 }}

@@ -40,11 +40,11 @@ export default function Home() {
     setData(posted[count].children.data[0].media_url)
   }
 
-  const handleSearch = async(keyword: string) => {
+  const handleSearch = async(value: any) => {
     const searchData = async () => {
       try {
         setLoading(true);
-        const data = await searchPostedData(keyword);
+        const data = await searchPostedData(value);
         console.log(data);
         setPosted(data);
         setData(data[0].children.data[0].media_url)
@@ -90,7 +90,7 @@ export default function Home() {
           { init? '' : <img src={data} alt='instagramImage' /> }
         </div>
       )} */}
-        <SearchTable/>
+        <SearchTable posted={posted} onSelectRow={handleSearch} loading={loading}/>
       </Layout>
     </>
   );

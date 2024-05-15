@@ -1,110 +1,64 @@
 import { Table, TableColumnsType, TableProps, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
 
-export const SearchTable =() =>{
+interface SearchTableProps {
+    posted:any;
+    onSelectRow: (value:any) => void;
+    loading:boolean;
+  }
+
+export const SearchTable: React.FC<SearchTableProps> =({posted, onSelectRow, loading}) =>{
     const {
         token: { colorBgContainer, borderRadiusLG },
       } = theme.useToken();
     interface DataType {
         key: React.Key;
-        name: string;
-        age: number;
-        address: string;
+        id: string;
+        likeCount: number;
+        commentsCount: number;
+        mediaType: string;
       }
+
+      const fixDataType = (value:any) =>{
+        let data: Array<DataType> = []
+        let dataChild: DataType = {key:'',id:'',likeCount:0,commentsCount:0,mediaType:''}
+        if(value != undefined){
+        for(let i = 0; i < value.length; i++){
+            dataChild.key = value[i].id;
+            dataChild.id = value[i].id;
+            dataChild.mediaType = value[i].media_type;
+            dataChild.likeCount = value[i].like_count;
+            dataChild.commentsCount = value[i].comments_count
+            data.push(dataChild);
+            dataChild = {key:'',id:'',likeCount:0,commentsCount:0,mediaType:''};
+        }
+    }
+        return data
+    }
+
+    const columnData:Array<DataType> = fixDataType(posted)
       
       const columns: TableColumnsType<DataType> = [
         {
-          title: 'Name',
-          dataIndex: 'name',
-          filters: [
-            {
-              text: 'Joe',
-              value: 'Joe',
-            },
-            {
-              text: 'Category 1',
-              value: 'Category 1',
-              children: [
-                {
-                  text: 'Yellow',
-                  value: 'Yellow',
-                },
-                {
-                  text: 'Pink',
-                  value: 'Pink',
-                },
-              ],
-            },
-            {
-              text: 'Category 2',
-              value: 'Category 2',
-              children: [
-                {
-                  text: 'Green',
-                  value: 'Green',
-                },
-                {
-                  text: 'Black',
-                  value: 'Black',
-                },
-              ],
-            },
-          ],
-          filterMode: 'tree',
-          filterSearch: true,
-          onFilter: (value, record) => record.name.includes(value as string),
+          title: 'ID',
+          dataIndex: 'id',
           width: '30%',
         },
         {
-          title: 'Age',
-          dataIndex: 'age',
-          sorter: (a, b) => a.age - b.age,
+            title: 'コンテンツの種類',
+            dataIndex: 'mediaType',
+          },
+        {
+          title: 'いいね数',
+          dataIndex: 'likeCount',
         },
         {
-          title: 'Address',
-          dataIndex: 'address',
-          filters: [
-            {
-              text: 'London',
-              value: 'London',
-            },
-            {
-              text: 'New York',
-              value: 'New York',
-            },
-          ],
-          onFilter: (value, record) => record.address.startsWith(value as string),
-          filterSearch: true,
+          title: 'コメント数',
+          dataIndex: 'commentsCount',
           width: '40%',
         },
       ];
       
-      const data1: DataType[] = [
-        {
-          key: '1',
-          name: 'John Brown',
-          age: 32,
-          address: 'New York No. 1 Lake Park',
-        },
-        {
-          key: '2',
-          name: 'Jim Green',
-          age: 42,
-          address: 'London No. 1 Lake Park',
-        },
-        {
-          key: '3',
-          name: 'Joe Black',
-          age: 32,
-          address: 'Sydney No. 1 Lake Park',
-        },
-        {
-          key: '4',
-          name: 'Jim Red',
-          age: 32,
-          address: 'London No. 2 Lake Park',
-        },
-      ];
       
       const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter, extra) => {
         console.log('params', pagination, filters, sorter, extra);
@@ -118,7 +72,11 @@ export const SearchTable =() =>{
               background: colorBgContainer,
               borderRadius: borderRadiusLG,
             }}>
-        <Table columns={columns} dataSource={data1} onChange={onChange} />
+        <Table columns={columns} dataSource={columnData} onChange={onChange} loading={loading} onRow={(record) =>{
+            return{onClick: (event) =>{
+                console.log(record);
+            }}
+        }} />
         </Content>
       );
 }
