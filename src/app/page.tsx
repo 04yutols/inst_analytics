@@ -1,15 +1,16 @@
 'use client'
 
 import { fetchPostedData } from "@/api/fetch";
-import { searchPostedData } from "@/api/search";
+import { searchPostedData, searchPostedDataDetail } from "@/api/search";
 import axios from "axios";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import type { MenuProps, TableColumnsType, TableProps } from 'antd';
-import { Breadcrumb, Layout, Menu, Spin, theme, Table } from 'antd';
+import { Breadcrumb, Layout, Menu, Spin, theme, Table, Modal } from 'antd';
 import React from "react";
 import SearchField from "@/components/views/SearchForm";
 import { SearchTable } from "@/components/views/SearchTable";
+import SearchDetail from "@/components/views/SearchDetail";
 
 const { Header, Content, Sider } = Layout;
 
@@ -21,23 +22,29 @@ export default function Home() {
   } = theme.useToken();
   const [init, setInit] = useState(true);
   const [posted, setPosted] = useState([]);
-  const [searchPosted, setSearchPosted] = useState([]);
-  const [clickUpdate, setClickUpdate] = useState(false);
   const [loading, setLoading] = useState(false); // ローディング状態を管理する
-  const [count, setCount] = useState(0);
-  const [data, setData] = useState();
+  const [modalData, setModalData] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalLoading, setModalLoading] = useState(false);
 
-  const onClickUpdate = () => {
-    setClickUpdate(!clickUpdate)
-  }
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
 
-  const onClickTest = () => {
-    console.log(posted.data[0].children.data[0].media_url)
-  }
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
-  const onClickNext = () => {
-    setCount(count+1)
-    setData(posted[count].children.data[0].media_url)
+  const handleSelectRow = async(value: any) => {
+    try {
+      setModalLoading(true);
+      setModalData(value);
+    } catch(error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      setModalLoading(false);
+      setIsModalOpen(true);
+    }
   }
 
   const handleSearch = async(value: any) => {
@@ -47,7 +54,6 @@ export default function Home() {
         const data = await searchPostedData(value);
         console.log(data);
         setPosted(data);
-        setData(data[0].children.data[0].media_url)
         setInit(false);
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -90,8 +96,11 @@ export default function Home() {
           { init? '' : <img src={data} alt='instagramImage' /> }
         </div>
       )} */}
-        <SearchTable posted={posted} onSelectRow={handleSearch} loading={loading}/>
+        <SearchTable posted={posted} onSelectRow={handleSelectRow} loading={loading}/>
       </Layout>
+      <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>
+        <SearchDetail data={modalData}/>
+      </Modal>
     </>
   );
 }

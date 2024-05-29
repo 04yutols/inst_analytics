@@ -1,5 +1,8 @@
 
 module.exports = {
+  experimental: {
+    externalDir: true
+  },
     plugins: [
       '@babel/plugin-transform-modules-commonjs',
     ],
