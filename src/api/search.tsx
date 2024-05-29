@@ -11,7 +11,7 @@ async function searchTag(value: SearchParam) {
     const res = await axios.get(
       `https://graph.facebook.com/v19.0/ig_hashtag_search?user_id=${user_id}&q=${value.tag}&access_token=${access_token}`
     );
-    return res.data.data[0].id;;
+    return res.data.data[0].id;
   } catch (error) {
     console.error("Error fetching data:", error);
     throw error;
@@ -21,7 +21,7 @@ async function searchTag(value: SearchParam) {
 async function searchPost(id: string, type?: string) {
   try {
     const res = await axios.get(
-      `https://graph.facebook.com/v19.0/${id}/${type}_media?user_id=${user_id}&fields=id,media_type,media_url,comments_count,like_count,children%7Bid%2Cmedia_type%2Cmedia_url%7D&access_token=${access_token}`
+      `https://graph.facebook.com/v19.0/${id}/${type}_media?user_id=${user_id}&fields=id,media_type,media_url,comments_count,like_count,timestamp,children%7Bid%2Cmedia_type%2Cmedia_url%7D&access_token=${access_token}`
     );
     return res.data;
   } catch (error) {
@@ -36,6 +36,18 @@ export async function searchPostedData(param: SearchParam) {
     const res = await searchPost(id, param.dataType);
     return res.data;
   } catch (error) {
+    console.error("Error fetching data:", error);
+    throw error;
+  }
+}
+
+export async function searchPostedDataDetail(id: string) {
+  try{
+    const res = await axios.get(
+      `https://graph.facebook.com/v19.0/${id}/?fields=id,media_type,media_url,comments_count,like_count,timestamp,children%7Bid%2Cmedia_type%2Cmedia_url%2Cthumbnail_url%7D&access_token=${access_token}`
+    );
+    return res.data;
+  } catch(error){
     console.error("Error fetching data:", error);
     throw error;
   }

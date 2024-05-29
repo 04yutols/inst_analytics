@@ -1,6 +1,6 @@
 'use client'
 import { SideBar } from "@/components/views/SideBar"
-import { TopMenu } from "@/components/elements/views/topMenu"
+import { TopMenu } from "@/components/views/TopMenu"
 import { Breadcrumb, Layout, theme } from "antd"
 import Sider from "antd/es/layout/Sider"
 import { Content, Header } from "antd/es/layout/layout"
