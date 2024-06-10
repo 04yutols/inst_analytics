@@ -1,6 +1,6 @@
 'use client'
 
-import { searchPostedData, searchPostedDataDetail } from "@/api/search";
+import { searchPostedData } from "@/api/search";
 import { useState } from "react";
 import { Layout, Modal } from 'antd';
 import React from "react";

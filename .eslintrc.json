@@ -1,5 +1,5 @@
 {
-    "extends": ["eslint:recommended", "next","next/core-web-vitals"],
+    "extends": ["next","next/core-web-vitals"],
     "globals": {
 		"datasets": false,
 		"label": false,

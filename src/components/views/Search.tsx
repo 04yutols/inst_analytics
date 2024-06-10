@@ -1,9 +1,7 @@
 import React from 'react';
 import { SearchOutlined } from '@ant-design/icons';
-import { Button, Flex, Tooltip, Input, theme, Form, Row, Col } from 'antd';
+import { Button, Flex, Input, theme, Form, Row, Col } from 'antd';
 import { Content } from 'antd/es/layout/layout';
-
-const FormItem = Form.Item;
 
 interface SearchProps {
   onSearch: (keyword: string) => void;
