@@ -12,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   const {
-    token: { colorBgContainer, borderRadiusLG },
+    token: { colorBgContainer },
   } = theme.useToken();
 
   return (
