@@ -1,31 +1,19 @@
 'use client'
 
-import { fetchPostedData } from "@/api/fetch";
 import { searchPostedData, searchPostedDataDetail } from "@/api/search";
-import axios from "axios";
-import Image from "next/image";
-import { useEffect, useState } from "react";
-import type { MenuProps, TableColumnsType, TableProps } from 'antd';
-import { Breadcrumb, Layout, Menu, Spin, theme, Table, Modal } from 'antd';
+import { useState } from "react";
+import { Layout, Modal } from 'antd';
 import React from "react";
 import SearchField from "@/components/views/SearchForm";
 import { SearchTable } from "@/components/views/SearchTable";
 import SearchDetail from "@/components/views/SearchDetail";
 
-const { Header, Content, Sider } = Layout;
-
-
-
 export default function Home() {
-  const {
-    token: { colorBgContainer, borderRadiusLG },
-  } = theme.useToken();
-  const [init, setInit] = useState(true);
+
   const [posted, setPosted] = useState([]);
   const [loading, setLoading] = useState(false); // ローディング状態を管理する
   const [modalData, setModalData] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalLoading, setModalLoading] = useState(false);
 
   const handleOk = () => {
     setIsModalOpen(false);
@@ -37,12 +25,10 @@ export default function Home() {
 
   const handleSelectRow = async(value: any) => {
     try {
-      setModalLoading(true);
       setModalData(value);
     } catch(error) {
       console.error("Error fetching data:", error);
     } finally {
-      setModalLoading(false);
       setIsModalOpen(true);
     }
   }
@@ -54,7 +40,6 @@ export default function Home() {
         const data = await searchPostedData(value);
         console.log(data);
         setPosted(data);
-        setInit(false);
       } catch (error) {
         console.error("Error fetching data:", error);
       } finally{
