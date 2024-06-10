@@ -3,6 +3,7 @@ import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/
 import React from "react";
 
 export const TopMenu = () => {
+    const itemList = ['Instagram','Youtube','TikTok']
     const contentStyle: React.CSSProperties = {
         padding: 50,
         background: 'rgba(0, 0, 0, 0.05)',
@@ -11,9 +12,9 @@ export const TopMenu = () => {
       
       const content = <div style={contentStyle} />;
     
-      const items1: MenuProps['items'] = ['1', '2', '3'].map((key) => ({
+      const items1: MenuProps['items'] = ['1', '2', '3'].map((key,index) => ({
         key,
-        label: `nav ${key}`,
+        label: [itemList[index]],
       }));
       
       const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
@@ -39,7 +40,7 @@ export const TopMenu = () => {
         <Menu
           theme="dark"
           mode="horizontal"
-          defaultSelectedKeys={['2']}
+          defaultSelectedKeys={['1']}
           items={items1}
           style={{ flex: 1, minWidth: 0 }}
         />

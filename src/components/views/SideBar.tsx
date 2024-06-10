@@ -1,8 +1,11 @@
 import { Menu, MenuProps } from "antd";
 import React from "react";
 import { LaptopOutlined, NotificationOutlined, UserOutlined } from '@ant-design/icons';
+import Link from "next/link";
 
 export const SideBar = () =>{
+    const labelList = ['投稿分析','投稿詳細分析','アカウント分析']
+    const hrefList = ['/','/detail','/myself']
     const items2: MenuProps['items'] = [UserOutlined, LaptopOutlined, NotificationOutlined].map(
         (icon, index) => {
           const key = String(index + 1);
@@ -10,15 +13,7 @@ export const SideBar = () =>{
           return {
             key: `sub${key}`,
             icon: React.createElement(icon),
-            label: `subnav ${key}`,
-      
-            children: new Array(4).fill(null).map((_, j) => {
-              const subKey = index * 4 + j + 1;
-              return {
-                key: subKey,
-                label: `option${subKey}`,
-              };
-            }),
+            label: <Link href={hrefList[index]} replace>{labelList[index]}</Link>,
           };
         },
       );
