@@ -15,9 +15,6 @@
         "sourceType": "module",
         "project": "./tsconfig.json"
     },
-    "plugins": [
-        "@typescript-eslint"
-    ],
     "rules": {
         // お好みで設定ください
         "@typescript-eslint/no-explicit-any": 1,
