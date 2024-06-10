@@ -10,7 +10,7 @@
 		"NodeListOf": false,
 		"Props": false,
 		"labels": false,
-        "React": false,
+        "React": false
 	},
     "rules": {
         "no-ununsed-vars": "off"
