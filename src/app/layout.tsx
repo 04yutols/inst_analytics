@@ -1,7 +1,7 @@
 'use client'
 import { SideBar } from "@/components/views/SideBar"
 import { TopMenu } from "@/components/views/TopMenu"
-import { Breadcrumb, Layout, theme } from "antd"
+import { Layout, theme } from "antd"
 import Sider from "antd/es/layout/Sider"
 import { Content, Header } from "antd/es/layout/layout"
 
@@ -12,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   const {
-    token: { colorBgContainer, borderRadiusLG },
+    token: { colorBgContainer },
   } = theme.useToken();
 
   return (

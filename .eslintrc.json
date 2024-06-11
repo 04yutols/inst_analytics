@@ -1,3 +1,15 @@
 {
-  "extends": "next/core-web-vitals"
-}
+    "extends": ["next","next/core-web-vitals"],
+    "globals": {
+		"datasets": false,
+		"label": false,
+		"data": false,
+		"borderColor": false,
+		"prefCode": false,
+		"prefName": false,
+		"NodeListOf": false,
+		"Props": false,
+		"labels": false,
+        "React": false
+	}
+  }

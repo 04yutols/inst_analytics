@@ -4,7 +4,6 @@ export type SearchParam = {
     sort?: string;
 }
 
-export type PostedData  {
-    key?: React.Key;
-    
+export type PostedData = {
+    key?: React.Key; 
 }
