@@ -35,7 +35,7 @@ const Search: React.FC<SearchProps> = ({ onSearch }) => {
           >
     <Form
         className="ant-advanced-search-form"
-        onSubmit={handleSearch}
+        onFinish={handleSearch}
       >
         <Row gutter={40}>{this.getFields()}</Row>
         <Row>
